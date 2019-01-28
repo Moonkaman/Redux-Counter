@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+
 import { increment, decrement } from '../actions';
 
 class Counter extends Component {
@@ -13,6 +14,16 @@ class Counter extends Component {
         // increments after waiting for one second
     };
 
+    increment = e => {
+        e.preventDefault();
+        this.props.increment(this.props.count);
+    }
+
+    decrement = e => {
+        e.preventDefault();
+        this.props.decrement(this.props.count);
+    }
+
     render() {
         // Fill in the two button onClick methods
         // Upon clicking these buttons, the count
@@ -20,10 +31,10 @@ class Counter extends Component {
         return (
             <p>
                 Clicked: {this.props.count} times
-                <button onClick={() => /* Fill me in */ }>
+                <button onClick={e => this.increment(e) }>
                     +
                 </button>
-                <button onClick={() => /* Fill me in */ }>
+                <button onClick={e => this.decrement(e) }>
                     -
                 </button>
                  {/* Uncomment these button tags if you got
