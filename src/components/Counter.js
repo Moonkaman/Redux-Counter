@@ -1,17 +1,32 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+
 import { increment, decrement } from '../actions';
 
 class Counter extends Component {
-    incrementIfOdd = () => {
-        // Stretch Problem: Implement an increment function that
-        // only increments if the counter value is odd
+    incrementIfOdd = e => {
+        e.preventDefault();
+        if(this.props.count === 0 || this.props.count % 2 !== 0) {
+            this.props.increment(this.props.count);
+        }
     };
 
-    incrementAsync = () => {
+    incrementAsync = e => {
         // Stretch Problem: Implement an increment function that
         // increments after waiting for one second
+        e.preventDefault();
+        setTimeout(_ => this.props.increment(this.props.count), 1000);
     };
+
+    increment = e => {
+        e.preventDefault();
+        this.props.increment(this.props.count);
+    }
+
+    decrement = e => {
+        e.preventDefault();
+        this.props.decrement(this.props.count);
+    }
 
     render() {
         // Fill in the two button onClick methods
@@ -20,20 +35,20 @@ class Counter extends Component {
         return (
             <p>
                 Clicked: {this.props.count} times
-                <button onClick={() => /* Fill me in */ }>
+                <button onClick={e => this.increment(e) }>
                     +
                 </button>
-                <button onClick={() => /* Fill me in */ }>
+                <button onClick={e => this.decrement(e) }>
                     -
                 </button>
                  {/* Uncomment these button tags if you got
                 around to implementing the extra credit functions */}
-                {/* <button onClick={this.incrementIfOdd}>
+                <button onClick={e => this.incrementIfOdd(e)}>
                     Increment if odd
                 </button>
-                <button onClick={this.incrementAsync}>
+                <button onClick={e => this.incrementAsync(e)}>
                     Increment async
-                </button>  */}
+                </button>
             </p>
         );
     }
